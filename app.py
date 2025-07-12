@@ -1,6 +1,7 @@
 import streamlit as st
 from generator.load_template import load_template
 from generator.load_prompt import load_prompt
+from generator.generate_text import generate_text
 
 
 st.set_page_config(page_title='Futuring Machines', layout="centered")
@@ -15,13 +16,20 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# load template 
+# load template and prompt
 template = load_template('futuristicCity')
+prompt = load_prompt('continueWriting')
 
 # initialize story
 if "story" not in st.session_state:
     st.session_state.story = template.get("template", "")
 
-# text area for user to write/edit story
+# story text area
 story = st.text_area("✍️ Your Imagination Space", value=st.session_state.story, height=400)
+
+# continue story with LLM
+if st.button("✨ Continue Story"):
+    generated = generate_text(prompt, story)
+    st.session_state.story += "\n" + generated
+    st.rerun()
 

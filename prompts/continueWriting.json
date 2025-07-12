@@ -1,0 +1,11 @@
+{
+  "name": "continue writing",
+  "trigger": "new-line",
+  "mode": "append",
+  "actions": [
+    {
+      "type": "generate",
+      "template": "Continue the following story, which is delimited with triple backticks. \n\nStory: ```::full::```"
+    }
+  ]
+}
