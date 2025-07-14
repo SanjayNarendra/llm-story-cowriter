@@ -50,23 +50,32 @@ def render_story_page():
     # load and display prompt buttons
     all_prompts = load_all_prompts()
     prompt_keys = list(all_prompts.keys())
-    col_count = min(len(prompt_keys), 4) or 1
-    cols = st.columns(col_count)
+    
+    if prompt_keys:
+        # Use more columns to allow compact horizontal layout
+        col_count = len(prompt_keys)
+        cols = st.columns(col_count)
 
-    for i, prompt_key in enumerate(prompt_keys):
-        prompt = all_prompts[prompt_key]
-        label = prompt.get("label", prompt_key)
-        description = prompt.get("description", "")
-        mode = prompt.get("mode", "append")
+        for i, prompt_key in enumerate(prompt_keys):
+            prompt = all_prompts[prompt_key]
+            name = prompt.get("name", prompt_key)
+            label = prompt.get("label", prompt_key)
+            description = prompt.get("description", "")
+            mode = prompt.get("mode", "append")
 
-        with cols[i % col_count]:
-            if st.button(label, help=description, key=f"prompt_{prompt_key}"):
-                with st.spinner(f"Running prompt: {label}"):
-                    result = execute_prompt(prompt, st.session_state.story_text)
+            with cols[i]:
+                # Add spacing around the button using markdown with HTML for padding
+                st.markdown("<div style='padding: 0.2rem;'>", unsafe_allow_html=True)
+                if st.button(label, help=description, key=f"prompt_{prompt_key}"):
+                    with st.spinner(f"Running prompt: {name}"):
+                        result = execute_prompt(prompt, st.session_state.story_text)
 
-                    if mode == "append":
-                        st.session_state.story_text += " " + result
-                    else:
-                        st.warning(f"Unsupported mode: {mode}")
+                        if mode == "append":
+                            st.session_state.story_text += " " + result
+                        elif mode == "replace":
+                            st.session_state.story_text = result
+                        else:
+                            st.warning(f"Unsupported mode: {mode}")
 
-                    st.rerun()
+                        st.rerun()
+                st.markdown("</div>", unsafe_allow_html=True)

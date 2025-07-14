@@ -1,0 +1,13 @@
+{
+  "name": "add twist",
+  "label": "🎭 Add a Twist",
+  "description": "Introduce a surprising or dramatic plot twist",
+  "trigger": "button",
+  "mode": "append",
+  "actions": [
+    {
+      "type": "generate",
+      "template": "Continue the following story with a short, unexpected event that brings conflict or suspense. The twist should shift the direction of the story and spark curiosity. Keep the response concise, one or two impactful sentences.\n\nStory: ```::full::```"
+    }
+  ]
+}

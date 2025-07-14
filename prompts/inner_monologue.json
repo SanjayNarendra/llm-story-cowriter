@@ -1,0 +1,13 @@
+{
+  "name": "inner monologue",
+  "label": "🧠 Inner Monologue",
+  "description": "Insert a short inner reflection from a key character",
+  "trigger": "button",
+  "mode": "append",
+  "actions": [
+    {
+      "type": "generate",
+      "template": "Add a short paragraph revealing the inner thoughts or emotional conflict of a main character at this point in the story. Do not alter the events — just reflect on them from within.\n\nStory: ```::full::```"
+    }
+  ]
+}

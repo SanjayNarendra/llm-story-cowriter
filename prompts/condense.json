@@ -1,0 +1,13 @@
+{
+  "name": "condense",
+  "label": "✂️ Condense",
+  "description": "Summarize the story into a shorter version with the same essence",
+  "trigger": "button",
+  "mode": "replace",
+  "actions": [
+    {
+      "type": "generate",
+      "template": "Rewrite the following story into a shorter version. Capture its core idea while reducing the number of words. Maintain the original tone and meaning.\n\nStory: ```::full::```"
+    }
+  ]
+}

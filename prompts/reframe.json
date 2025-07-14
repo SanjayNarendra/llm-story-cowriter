@@ -1,0 +1,13 @@
+{
+  "name": "reframe",
+  "label": "🔄 Reframe",
+  "description": "Rewrite the scene from a new angle or perspective",
+  "trigger": "button",
+  "mode": "replace",
+  "actions": [
+    {
+      "type": "generate",
+      "template": "Take the following story excerpt and rewrite it by shifting its perspective or tone. Keep the original meaning, but change how it is expressed. This could mean rephrasing with more emotion, neutrality, or even irony.\n\nStory: ```::full::```"
+    }
+  ]
+}

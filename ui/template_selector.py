@@ -24,9 +24,11 @@ def render_template_page():
 
     st.markdown(
         """
-        <h5 style='font-family: Segoe UI, sans-serif; font-size: 1.1rem; margin: 2.5rem 0rem 0.4rem;'>
-            Choose a setting to begin your story:
-        </h5>
+        <div style="margin: 2.5rem 0 0rem 10rem;">
+            <h5 style='font-family: Segoe UI, sans-serif; font-size: 1.1rem;'>
+                Choose a setting to begin your story:
+            </h5>
+        </div>
         """,
         unsafe_allow_html=True
     )
@@ -39,22 +41,40 @@ def render_template_page():
         label = template.get("label", key)
         description = template.get("description", "")
 
-        if st.button(label, help=description, key=f"template_btn_{key}"):
-            action = template.get("actions", [{}])[0]
-            action_type = action.get("type", "")
+        with st.container():
+            st.markdown("<div style='max-width: 70%;  margin-left: 4rem; margin-bottom: 0.5rem;'>", unsafe_allow_html=True)
+            col_text, col_button = st.columns([1, 1])
 
-            if action_type == "static":
-                story_text = action.get("template", "")
-            elif action_type == "generate":
-                with st.spinner("Story loading..."):
-                    story_text = execute_prompt(template, "")
-            else:
-                story_text = "[Invalid template format]"
+            with col_text:
+                st.markdown(f"""
+                    <div style="padding: 1rem 10rem; border: 1px solid #333; border-radius: 2rem; text-align: center;
+                                background-color: #1e1e1e;">
+                        <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.4rem;">{label}</div>
+                        <div style="font-size: 1rem; color: #aaa;">{description}</div>
+                    </div>
+                """, unsafe_allow_html=True)
 
-            st.session_state.story_text = story_text
-            st.session_state.template_name = template.get("name", key)
-            st.session_state.page = "write_story"
-            st.rerun()
+            with col_button:
+                st.markdown("<div style='margin-top: 2.2rem;'>", unsafe_allow_html=True)
+                if st.button("📖 Let's Begin", key=f"launch_{key}"):
+                    action = template.get("actions", [{}])[0]
+                    action_type = action.get("type", "")
+
+                    if action_type == "static":
+                        story_text = action.get("template", "")
+                    elif action_type == "generate":
+                        with st.spinner("Loading your story..."):
+                            story_text = execute_prompt(template, "")
+                    else:
+                        story_text = "[Invalid template format]"
+
+                    st.session_state.story_text = story_text
+                    st.session_state.template_name = template.get("name", key)
+                    st.session_state.page = "write_story"
+                    st.rerun()
+                st.markdown("</div>", unsafe_allow_html=True)
+
+            st.markdown("</div>", unsafe_allow_html=True)
                 
 
         
