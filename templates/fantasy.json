@@ -1,0 +1,13 @@
+{
+  "name": "Fantasy",
+  "label": "🪄 Future Fantasy",
+  "description": "Explore enchanted realms where sorcery meets synthetic life, illusion, holographic prophecy...",
+  "trigger": "template-click",
+  "mode": "overwrite",
+  "actions": [
+    {
+      "type": "static",
+      "template": "In the year 3120, atop floating crystal spires, arcane tech sorcerers forged destiny with spells coded in quantum glyphs."
+    }
+  ]
+}

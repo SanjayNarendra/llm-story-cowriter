@@ -1,0 +1,13 @@
+{
+  "name": "Sci-Fi",
+  "label": "🛸 Sci-Fi",
+  "description": "Enter the world of AI civilizations, time portals, interstellar discovery, synthetic life...",
+  "trigger": "template-click",
+  "mode": "overwrite",
+  "actions": [
+    {
+      "type": "generate",
+      "template": "Write a short opening paragraph (2 to 3 sentences) for a futuristic sci-fi story. Set the scene vividly and introduce at least one detail that hints at advanced technology or a transformed world."
+    }
+  ]
+}

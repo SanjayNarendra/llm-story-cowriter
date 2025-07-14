@@ -1,35 +1,23 @@
 import streamlit as st
-from generator.load_template import load_template
-from generator.load_prompt import load_prompt
-from generator.generate_text import generate_text
+from ui.template_selector import render_template_page
+from ui.story_editor import render_story_page
+
+# App config
+st.set_page_config(page_title="Futuring Machines", layout="wide")
+
+# Session State Setup
+if "page" not in st.session_state:
+    st.session_state.page = "select_template"
+
+if "story_text" not in st.session_state:
+    st.session_state.story_text = ""
+
+if "template_name" not in st.session_state:
+    st.session_state.template_name = ""
 
 
-st.set_page_config(page_title='Futuring Machines', layout="centered")
-
-st.title("Futuring Machines - Let's imagine the future together")
-st.markdown(
-    """
-    <h4 style='text-align: right; color: #aaa; font-weight: 400; font-size: 18px;'>
-        A story whispered by you, echoed by AI ✨
-    </h4>
-    """,
-    unsafe_allow_html=True
-)
-
-# load template and prompt
-template = load_template('futuristicCity')
-prompt = load_prompt('continueWriting')
-
-# initialize story
-if "story" not in st.session_state:
-    st.session_state.story = template.get("template", "")
-
-# story text area
-story = st.text_area("✍️ Your Imagination Space", value=st.session_state.story, height=400)
-
-# continue story with LLM
-if st.button("✨ Continue Story"):
-    generated = generate_text(prompt, story)
-    st.session_state.story += "\n" + generated
-    st.rerun()
+if st.session_state.page == "select_template":
+    render_template_page()
+elif st.session_state.page == "write_story":
+    render_story_page()
 

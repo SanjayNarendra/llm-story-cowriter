@@ -1,0 +1,13 @@
+{
+  "name": "continue writing",
+  "label": "📝 Continue Story",
+  "description": "Add a short continuation in a narrative style",
+  "trigger": "new-line",
+  "mode": "append",
+  "actions": [
+    {
+      "type": "generate",
+      "template": "Continue the following story, which is delimited with triple backticks. Follow up the event prompted in the last sentence or paragraph, maintaining the tone and style of the original. Keep your continuation concise, ideally two or three sentences. \n\nStory: ```::full::```"
+    }
+  ]
+}

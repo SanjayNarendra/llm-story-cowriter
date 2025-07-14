@@ -1,17 +1,26 @@
-import os
-from utils.json_loader import load_json
+from templates.template_loader import load_all_templates
 from utils.logger import logger
 
 
-template_dir = os.path.join('templates')
-
 def load_template(template_name: str) -> dict:
+    """
+    Loads a specific template configuration by its name from the template registry
+
+    Args:
+        template_name (str): The name of the template file (without .json)
+
+    Returns:
+        dict: Parsed  template content dictionary if found, else empty dict
+    """
     try:
-        filepath = os.path.join('templates', f'{template_name}.json')
-        template = load_json(filepath)
-        logger.info(f'Loading template:, {filepath}')
-        return template
-        
+        all_templates = load_all_templates()
+        if template_name in all_templates:
+            logger.debug(f"Loaded template: {template_name}")
+            return all_templates[template_name]
+        else:
+            logger.warning(f"Template '{template_name}' not found in registry.")
+            return {}
+
     except Exception as e:
-       logger.error(f"Error loading template '{template_name}': {e}")
-       return {}
+        logger.error(f"Failed to load template '{template_name}': {e}")
+        return {}
